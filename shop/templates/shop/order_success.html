@@ -1,0 +1,22 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="max-w-lg mx-auto text-center bg-white border border-slate-100 p-10 rounded-3xl shadow-sm space-y-6 my-12">
+    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl animate-bounce">
+        🎉
+    </div>
+    <h1 class="text-3xl font-extrabold text-slate-900">Order Placed Successfully!</h1>
+    <p class="text-slate-600">Order #{{ order.id }} for <span class="font-bold">{{ order.product.name }}</span> has been confirmed.</p>
+    
+    {% if order.payment_method == 'UPI' %}
+    <div class="bg-sky-50 border border-sky-200 p-4 rounded-2xl space-y-3">
+        <p class="text-sm text-sky-900 font-medium">Complete your locked payment of <span class="font-bold">₹{{ order.total_price }}</span> via UPI:</p>
+        <!-- Hidden UPI ID behind deep link -->
+        <a href="upi://pay?pa=7418302415@upi&pn=SkyStore&am={{ order.total_price }}&cu=INR" class="inline-block w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 rounded-xl shadow-md transition">
+            Pay by UPI (₹{{ order.total_price }})
+        </a>
+    </div>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="inline-block w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-xl transition">Continue Shopping</a>
+</div>
+{% endblock %}

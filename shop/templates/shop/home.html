@@ -1,0 +1,45 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="space-y-12">
+    <!-- Hero Banner -->
+    <div class="bg-sky-50 border border-sky-100 rounded-3xl p-10 flex flex-col md:flex-row items-center justify-between">
+        <div class="space-y-4 max-w-lg">
+            <span class="bg-sky-100 text-sky-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">New Collection</span>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Discover Modern Style & Tech</h1>
+            <p class="text-slate-600">Explore handpicked categories and special offers curated just for you.</p>
+            <a href="{% url 'products' %}" class="inline-block bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-sky-100 transition">Explore Products</a>
+        </div>
+    </div>
+
+    <!-- Categories Section -->
+    <div>
+        <h2 class="text-2xl font-bold tracking-tight mb-6">Categories</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {% for category in categories %}
+            <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm text-center hover:border-sky-500 transition cursor-pointer">
+                <span class="font-semibold text-slate-800">{{ category.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Featured Products -->
+    <div>
+        <h2 class="text-2xl font-bold tracking-tight mb-6">Featured Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {% for product in featured_products %}
+            <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-48 object-cover rounded-xl mb-4">
+                    <h3 class="font-bold text-slate-900">{{ product.name }}</h3>
+                    <p class="text-sky-600 font-extrabold mt-1">₹{{ product.price }}</p>
+                </div>
+                <a href="{% url 'product_detail' product.id %}" class="mt-4 flex items-center justify-between bg-slate-50 text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-sky-500 hover:text-white transition">
+                    Explore Option <span>→</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

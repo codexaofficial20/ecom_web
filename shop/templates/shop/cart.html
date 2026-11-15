@@ -1,0 +1,37 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+    <h1 class="text-3xl font-extrabold tracking-tight">Your Shopping Cart</h1>
+    
+    <div class="space-y-4">
+        {% for item in cart_items %}
+        <div class="bg-white border border-slate-100 p-4 rounded-2xl flex items-center justify-between shadow-sm">
+            <div class="flex items-center gap-4">
+                <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="w-16 h-16 object-cover rounded-xl">
+                <div>
+                    <h3 class="font-bold text-slate-900">{{ item.product.name }}</h3>
+                    <p class="text-sm text-slate-500">Qty: {{ item.quantity }}</p>
+                </div>
+            </div>
+            <span class="font-extrabold text-sky-600">₹{{ item.product.price }}</span>
+        </div>
+        {% empty %}
+        <p class="text-slate-500 py-8 text-center">Your cart is empty.</p>
+        {% endfor %}
+    </div>
+
+    {% if cart_items %}
+    <div class="bg-slate-50 border border-slate-100 p-6 rounded-2xl space-y-4">
+        <div class="flex justify-between text-slate-600">
+            <span>Total Saved</span>
+            <span class="font-bold text-emerald-600">₹{{ total_saved }}</span>
+        </div>
+        <div class="flex justify-between text-xl font-extrabold text-slate-900 border-t border-slate-200 pt-4">
+            <span>Total Price</span>
+            <span>₹{{ total_price }}</span>
+        </div>
+        <a href="{% url 'checkout' cart_items.0.product.id %}" class="block w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 rounded-xl text-center shadow-lg shadow-sky-100 transition">Buy Now</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

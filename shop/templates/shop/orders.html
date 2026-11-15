@@ -1,0 +1,20 @@
+{% extends 'shop/base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto space-y-8">
+    <h1 class="text-3xl font-extrabold tracking-tight">Your Orders</h1>
+    <div class="space-y-4">
+        {% for order in orders %}
+        <div class="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h3 class="font-bold text-slate-900 text-lg">{{ order.product.name }}</h3>
+                <p class="text-sm text-slate-500 mt-1">Paid Amount: <span class="font-bold text-slate-800">₹{{ order.total_price }}</span> (Qty: {{ order.quantity }})</p>
+                <p class="text-xs text-sky-600 font-semibold mt-1">Status: {% if order.is_delivered %}Delivered{% else %}Processing{% endif %}</p>
+            </div>
+            <a href="{% url 'product_detail' order.product.id %}" class="bg-slate-50 hover:bg-sky-500 hover:text-white text-slate-700 font-semibold px-4 py-2 rounded-xl text-sm transition">Leave Review</a>
+        </div>
+        {% empty %}
+        <p class="text-slate-500 py-8 text-center">You haven't placed any orders yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
